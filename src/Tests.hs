@@ -1,9 +1,9 @@
 {-# LANGUAGE FlexibleInstances #-}
 
-import Sort
-import           Test.QuickCheck                 ()
+import           Sort
+import           Test.QuickCheck       ()
 import           Test.Tasty
-import           Test.Tasty.QuickCheck           as QC
+import           Test.Tasty.QuickCheck as QC
 
 main :: IO ()
 main = defaultMain tests
@@ -36,11 +36,10 @@ tests = setMaxSuccess $ testGroup "Lists"
   ]
 
 listLengths :: [List Int] -> [Int]
-listLengths lists = fmap length lists
+listLengths = fmap length
 
 checkOrder :: (Int -> Int -> Bool) -> [Int] -> Bool
 checkOrder comparePred lengths = ordered
   where
     neighbors = tail lengths
-    bools = zipWith comparePred lengths neighbors
-    ordered = all id bools
+    ordered = and $ zipWith comparePred lengths neighbors

@@ -1,6 +1,6 @@
 module Sort where
 
-import           Data.List          (sortBy)
+import           Data.List (sortBy)
 
 type List a = [a]
 

@@ -2,7 +2,7 @@
 
 module Main where
 
-import Sort
+import           Sort
 import           System.Environment (getArgs)
 
 -- Manually set the expected input type as GHC needs to know reading from
