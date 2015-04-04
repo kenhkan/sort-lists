@@ -2,11 +2,11 @@
 
 module Main where
 
-import           System.Environment              (getArgs)
-import Data.List (sortBy)
+import           Data.List          (sortBy)
+import           System.Environment (getArgs)
 
--- Manually set the expected input type, which is irrelevant in this
--- challenge anyway.
+-- Manually set the expected input type as GHC needs to know reading from
+-- the command-line. The exact type is irrelevant in this challenge though.
 type InputType = Int
 
 type List a = [a]
@@ -21,19 +21,18 @@ instance Read Order where
 main :: IO ()
 main = do
     args <- getArgs
-    let order = read (if (null args) then "asc" else head args) :: Order
+    let order = read (if null args then "asc" else head args) :: Order
 
     line <- getLine
     let lists = read line :: [[InputType]]
 
-    let display = putStrLn . show
-    display . sortLists order $ lists
+    print . sortLists order $ lists
 
 sortLists :: Order -> [List a] -> [List a]
-sortLists order lists = sortBy (compareLists order) lists
+sortLists order = sortBy (compareLists order)
 
 -- This creates a compare predicate for sorting.
-compareLists :: Order -> (List a -> List a -> Ordering)
+compareLists :: Order -> List a -> List a -> Ordering
 compareLists Asc a b  = if compareLists' a b then LT else GT
 compareLists Desc a b = if compareLists' a b then GT else LT
 
